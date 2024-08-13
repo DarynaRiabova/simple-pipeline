@@ -1,18 +1,20 @@
-name: main
-on: manual
+name: simple-pipeline
+on: [workflow_dispatch]
+
 jobs:
-job_name:
-runs-on: ubuntu-latest
-steps:
-- name: Checkout repository
-users: action/checkout@v3
+ run-js-test:
+  runs-on: ubuntu-latest
+ 
+  steps:
+  - name: Checkout repository
+    uses: action/checkout@v3
 
-- name: Setup Node.js
-users: actions/setup-node@v3
-with:
-node-version: 'v18.17.0'
-- name: Install dependencies
-run: npm install
+  - name: Setup Node.js
+    uses: actions/setup-node@v3
+    with:
+     node-version: '18.17.0'
+  - name: Install dependencies
+    run: npm install jest
 
-- name: Run test
-run: npm test
+  - name: Run test
+    run: npm test
